@@ -9,12 +9,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
+      # This downloads the config file so the bot remembers your last /set command
+      - name: Download previous target config
+        uses: actions/download-artifact@v4
+        with:
+          name: bot-config
+          path: .
+        continue-on-error: true 
+      
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          
       - run: pip install -r requirements.txt
-      - run: python main.py
+      
+      - name: Run watcher
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
           APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+        run: python main.py
+      
+      # This saves the config file so the next run remembers it
+      - name: Save target config
+        uses: actions/upload-artifact@v4
+        with:
+          name: bot-config
+          path: target_config.json
+          retention-days: 30
