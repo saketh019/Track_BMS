@@ -6,7 +6,7 @@ from apify_client import ApifyClient
 TELEGRAM_TOKEN = os.environ["TELEGRAM_TOKEN"]
 CHAT_ID = os.environ["CHAT_ID"]
 APIFY_TOKEN = os.environ["APIFY_TOKEN"]
-DATASET_ID = "YOUR_DATASET_ID_HERE" # Paste your Dataset ID here
+DATASET_ID = "OFFnYM36XAxQSD7pX" # Paste your Dataset ID here
 
 CONFIG_FILE = "target_config.json"
 
